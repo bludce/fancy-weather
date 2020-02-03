@@ -4,9 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <link href="https://websygen.github.io/owfont/css/owfont-regular.css" rel="stylesheet" type="text/css" />
+  <title>Fancy-weather</title>
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.js"></script>
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
-  <h1>Hello!</h1>
+  <div class="app">
+    <header class="header">
+      <div class="header__left">
+        <span>Fancy-weather</span>
+      </div>
+      <div id="time" class="header__right">
+        <p></p>
+      </div>
+    </header>
+    
+    <nav class="nav">
+      <div class="select">
+        <select name="" id="language">
+          <option value="En">En</option>
+          <option value="Ru">Ru</option>
+          <option value="Be">Be</option>
+        </select>
+      </div>
+      <div class="select">
+        <select name="" id="temp">
+          <option value="celcium">℃</option>
+          <option value="farenheit">℉</option>
+        </select>
+      </div>
+      <a href="" class="btn">Switch image</a>
+      <div class="search-container">
+        <form class="search" action="">
+          <input class="search__input" type="text" placeholder="Search city" name="search">
+          <button class="search__btn" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    
+    <main class="main">
+      <article class="section">
+        <header id="cityImage" class="section__header">
+          <h1 id="city" class="section__title"></h1>
+          <p id="coords" class="section__subtitle"><span id="lat"></span>°N, <span id="lon"></span>°E</p>
+        </header>
+        <div class="section__content">
+          <ul class="boxgrid ">
+            <li class="boxgrid__item">
+              <a href="#" class="box box--weather" id="currentDate">
+                <p><span class="text--large"></span><br /></p>
+              </a>
+            </li>
+            <li class="boxgrid__item">
+              <a href="#" class="box box--weather">
+                <p><span class="text--large"><span id="currentTemp"></span><span class="temp">°C</span></span><i id="currentIcon" class="owf owf-5x "></i><br /><span id="description"></span> </p>
+              </a>
+            </li>
+            <li class="boxgrid__item">
+              <a href="#" class="box box--cost">
+                <p>
+                  <span class="text--medium">Feels Like:</span> <span id="feels"></span>°<br>
+                  <span class="text--medium">Wind:</span> <span id="wind"></span> m/s<br>
+                  <span class="text--medium">Humidity:</span> <span id="humidity"></span>%
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item boxgrid__item--ultrawide" id="map">
+              
+            </li>
+            <li class="boxgrid__item" data-forecast="true">
+              <a href="#" class="box box--transparent">
+                <p>
+                  <span class="text--medium"></span><br>
+                  <span class="text--large">°C</span><i class="owf owf-5x "></i>
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item" data-forecast="true">
+              <a href="#" class="box box--transparent">
+                <p>
+                  <span class="text--medium"></span><br>
+                  <span class="text--large">°C</span><i class="owf owf-5x "></i>
+                </p>
+              </a>
+            </li>
+            <li class="boxgrid__item" data-forecast="true">
+              <a href="#" class="box box--transparent" >
+                <p>
+                  <span class="text--medium"></span><br>
+                  <span class="text--large">°C</span><i class="owf owf-5x "></i>
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+      <div class="preloader">
+        <div class="circ">
+          <div class="load">Loading . . . </div>
+          <div class="hands"></div>
+          <div class="body"></div>
+          <div class="head">
+            <div class="eye"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <a href="https://github.com/bludce">Aleksey Zadorozhny</a>
+    </footer>
+  </div>
 </body>
 </html>

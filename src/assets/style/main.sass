@@ -1,0 +1,520 @@
+$header-height: 4rem
+$section-height: 500px
+$nav-width: 20%
+$footer-height: 4rem
+$border-radius: 0.5rem
+$default-spacing: 2rem
+
+$gray-dark: #121519
+$gray: #a0a0a0
+$gray-light: #f3f3f3
+
+$indigo: #6c73dc
+$teal: #89cdce
+$lightblue: #66aee5
+
+// ============= GENERAL CSS ==============
+
+*,
+*::before,
+*::after
+  box-sizing: border-box
+
+body
+  min-height: 100vh
+  height: 100%
+  overflow: hidden
+  color: white
+  background-color: $gray-dark
+  font-family: "Montserrat", "Roboto", "Droid Sans", "Helvetica Neue", sans-serif
+
+ul, ol
+  list-style-type: none
+  padding: 0
+  margin: 0
+
+a
+  text-decoration: none
+
+p
+  font-size: 1rem
+  margin: 1rem 0
+
+// ============= MAIN LAYOUT ==============
+
+.app
+  display: grid
+  grid-template-rows: $header-height 1fr $footer-height
+  grid-template-columns: $nav-width 1fr
+  height: 100vh
+
+.header,
+.footer
+  font-size: 0.75rem
+  font-weight: 200
+  text-transform: uppercase
+  letter-spacing: 1px
+  color: $gray
+
+.header
+  display: flex
+  justify-content: space-between
+  grid-column: 1 / -1
+  padding: 0 $default-spacing
+  border-bottom: 1px solid rgba(white, 0.1)
+  &__left,
+  &__right
+    display: flex
+    align-items: center
+
+.main
+  position: relative
+  grid-column: 1 / -1
+  padding: $default-spacing
+  overflow-x: hidden
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  perspective: 1px
+  scroll-snap-type: block proximity
+  scroll-snap-destination: 0% 100%
+  scroll-snap-points-y: repeat(100%)
+  @media screen and (min-width: 1024px)
+    grid-column: 2 / -1
+
+.footer
+  display: flex
+  align-items: center
+  grid-column: 1 / -1
+  padding: 0 $default-spacing
+  border-top: 1px solid rgba(white, 0.1)
+  a
+    width: 100%
+    color: white
+    text-align: center
+    &:hover, &:focus
+      text-decoration: underline
+
+// ============= NAVIGATION ==============
+
+.nav
+  padding: 20px 
+  border-right: 1px solid rgba(white, 0.1)
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  &__item:not(:last-child)
+    border-bottom: 1px solid rgba(white, 0.1)
+  &__link
+    display: block
+    color: white
+    font-weight: 200
+    &:hover,
+    &:focus
+      background-color: rgba(white, 0.035)
+  @media screen and (min-width: 1024px)
+    display: block
+    grid-column: 1 / 2
+
+// ============= PAGE SECTIONS ==============
+
+.section
+  min-height: calc(100vh - 14rem)
+  padding-top: $section-height / 2 + 50
+  margin-bottom: 0
+  position: relative
+  transform-style: preserve-3d
+  scroll-snap-align: start
+  overflow: hidden
+  &__header
+    position: absolute
+    top: 50px
+    left: 0
+    right: 0
+    height: 800px
+    padding: $default-spacing
+    border-radius: $border-radius
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center center
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.25)
+    &::after
+      content: ""
+      display: block
+      position: absolute
+      top: 50%
+      left: 0
+      right: 0
+      bottom: 0
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%)
+  &__title
+    font-size: 3.5rem
+    font-weight: 200
+    margin-bottom: 0.5rem
+    line-height: 1
+  &__subtitle
+    font-size: 1.5rem
+  &__controls
+    display: flex
+    align-items: center
+    position: absolute
+    padding: 0 $default-spacing
+    top: 0
+    left: 0
+    right: 0
+    transform: translateY(-50%)
+  &__content
+    position: relative
+    z-index: 1
+    padding: 0 $default-spacing / 2
+  @media screen and (min-width: 1024px)
+    &__header
+      transform: translateZ(-1px) scale(1.9)
+    &__content
+      padding: 0
+      transform: translateZ(0)
+
+// ============= CONTENT BOX GRID ==============
+
+.boxgrid
+  display: grid
+  grid-template-columns: repeat(6, minmax(150px, 1fr))
+  grid-auto-rows: minmax(150px, auto)
+  grid-gap: 2rem 0.5rem
+  padding: 20px
+  &--half
+    width: 50%
+  &__item
+    display: flex
+    &--wide
+      grid-column: span 2
+    &--ultrawide
+      padding-left: 50%
+      grid-column: span 3
+      grid-row: span 2
+    &--push
+      @media screen and (min-width: 1280px)
+        grid-column: span 2
+        padding-left: 50%
+
+// ============= CONTENT BOX ==============
+
+.box
+  display: flex
+  flex: 1 0 0
+  align-items: center
+  position: relative
+  padding: $default-spacing
+  border-radius: $border-radius
+  font-size: 0.875rem
+  color: white
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22)
+  transform: scale(1)
+  transition: all 0.25s ease
+  filter: brightness(100%)
+  &:hover,
+  &:focus
+    transform: scale(1.07)
+    filter: brightness(110%)
+    z-index: 10
+  &--weather
+    background-color: $teal
+  &--cost
+    background-color: $lightblue
+  &--locations
+    background-color: $indigo
+  &--transparent
+    background-color: rgba(0, 0, 0, 0.7)
+  &--image,
+  &--video
+    padding: 0
+  &--video
+    // fake a video play button
+    &::before,
+    &::after
+      content: ""
+      display: block
+      position: absolute
+      top: 50%
+      left: 50%
+      z-index: 10
+      transform: translate(-50%, -50%)
+    &::before
+      width: 50px
+      height: 50px
+      background-color: white
+      border-radius: 50%
+      box-shadow: 0 0 38px rgba(0, 0, 0, 0.3)
+    &::after
+      width: 0
+      height: 0
+      border-style: solid
+      border-width: 10px 0 10px 15px
+      border-color: transparent transparent transparent $gray-dark
+      margin-left: 2px
+  &__img
+    display: block
+    width: 100%
+    height: 100%
+    position: absolute
+    object-fit: cover
+    object-position: center
+    border-radius: $border-radius
+
+// ============= MISC UTILITIES ==============
+
+.text--large
+  font-size: 3rem
+  font-weight: 200
+
+.text--medium
+  font-size: 1.5rem
+  font-weight: 200
+
+.arrow
+  display: inline-block
+  padding: 3px
+  border-style: solid
+  border-width: 0 2px 2px 0
+  &--large
+    padding: 8px
+    border-width: 0 1px 1px 0
+  &--right
+    transform: rotate(-45deg)
+  &--left
+    transform: rotate(135deg)
+  &--up
+    transform: rotate(-135deg)
+  &--down
+    transform: rotate(45deg)
+
+.media
+  display: flex
+  align-items: center
+  padding: $default-spacing
+  &__img
+    width: 60px
+    height: 60px
+    margin-right: $default-spacing / 2
+    border-radius: $border-radius / 2
+    object-position: center center
+    object-fit: cover
+  &__content
+    margin: 0
+
+.select 
+  margin-bottom: 30px
+  & select
+    display: block
+    width: 100%
+    padding: .75rem 2.5rem .75rem 1rem
+    background: none
+    border: 1px solid rgba(white, 0.1)
+    border-radius: 3px
+    font-family: inherit
+    font-size: 1rem
+    color: #fff
+    & option
+      color: #000
+
+.btn
+  display: block
+  width: 100%
+  color: #fff
+  padding: 20px
+  border: 1px solid rgba(white, 0.1)
+  border-radius: 3px
+  text-align: center
+  margin-bottom: 30px
+
+
+.search
+  display: flex
+  &__input
+    display: block
+    width: 100%
+    padding: .75rem 2.5rem .75rem 1rem
+    background-color: transparent
+    border: 1px solid rgba(white, 0.1)
+    border-radius: 3px 0 0 3px
+    color: white
+    &::placeholder
+      color: white
+  &__btn
+    background-color: transparent
+    border: 1px solid rgba(white, 0.1)
+    border-radius: 0 3px 3px 0
+    color: white
+    padding: .75rem 1rem .75rem 1rem
+    text-align: center
+
+
+
+@media (max-width: 1300px)
+  .boxgrid
+    grid-template-columns: repeat(4, minmax(150px, 1fr))
+    &__item
+      &:nth-child(n+5)
+        grid-row-start: 3
+      &--ultrawide
+        padding-left: 0
+        grid-row: auto
+       
+@media (max-width: 1024px)
+  .app
+    grid-template-rows: auto auto auto 70px
+    grid-template-columns: auto
+  .boxgrid
+    grid-template-columns: repeat(3, minmax(150px, 1fr))
+
+@media (max-width: 700px)
+  .main 
+    padding: 0
+  .app
+    grid-template-rows: auto 150px auto 70px
+    padding: 0
+  .boxgrid
+    grid-template-columns: 1fr
+    padding: 0
+    &__item
+      &:nth-child(n+5)
+        grid-row-start: auto
+      &--ultrawide
+        grid-column: auto
+
+// ============= PRELOADER ==============
+.preloader
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  width: 100%
+  height: 100%
+  z-index: 100
+  background-color: #121519
+  &--active
+    display: block
+.eye
+  width: 20px
+  height: 8px
+  background-color: rgba(240, 220, 220, 1)
+  border-radius: 0px 0px 20px 20px
+  position: relative
+  left: 10px
+  top: 40px
+  box-shadow: 40px 0px 0px 0px rgba(240, 220, 220, 1)
+
+.head
+  -webkit-backface-visibility: hidden
+  position: relative
+  margin: -250px auto
+  width: 80px
+  height: 80px
+  background-color: #111
+  border-radius: 50px
+  box-shadow: inset -4px 2px 0px 0px rgba(240, 220, 220, 1)
+  -webkit-animation: headAnim 1.5s infinite alternate
+  -webkit-animation-timing-function: ease-out
+
+.body
+  position: relative
+  margin: 90px auto
+  width: 140px
+  height: 120px
+  background-color: #111
+  border-radius: 50px / 25px
+  box-shadow: inset -5px 2px 0px 0px rgba(240, 220, 220, 1)
+  -webkit-animation: bodyAnim 1.5s infinite alternate
+  -webkit-animation-timing-function: ease-out
+
+@-webkit-keyframes headAnim
+  0%
+    top: 0px
+
+  50%
+    top: 10px
+
+  100%
+    top: 0px
+
+@-webkit-keyframes bodyAnim
+  0%
+    top: -5px
+
+  50%
+    top: 10px
+
+  100%
+    top: -5px
+
+
+
+.circ
+  -webkit-backface-visibility: hidden
+  margin: 60px auto
+  width: 180px
+  height: 180px
+  background-color: #121519
+  position: relative
+  z-index: -1
+  left: 0%
+  top: 20%
+  overflow: hidden
+
+.hands
+  -webkit-backface-visibility: hidden
+  margin-top: 140px
+  width: 120px
+  height: 120px
+  position: absolute
+  background-color: #111
+  border-radius: 20px
+  box-shadow: (-1px) -4px 0px 0px rgba(240, 220, 220, 1)
+  -webkit-transform: rotate(45deg)
+  top: 75%
+  left: 16%
+  z-index: 1
+  -webkit-animation: bodyAnim 1.5s infinite alternate
+  -webkit-animation-timing-function: ease-out
+
+.load
+  position: absolute
+  width: 7ch
+  height: 32px
+  text-align: left
+  line-height: 32px
+  margin: -10px auto
+  -webkit-font-smoothing: antialiased
+  font-family: 'Julius Sans One', sans-serif
+  font-size: 28px
+  font-weight: 400
+  color: rgba(240, 220, 220, 1)
+  left: 2%
+  top: 5%
+  -webkit-animation: fontAnim 3.75s infinite
+  -webkit-animation-timing-function: ease-out
+  word-wrap: break-word
+  display: block
+  overflow: hidden
+
+@-webkit-keyframes fontAnim
+  0%
+    width: 7ch
+
+  16%
+    width: 8ch
+
+  32%
+    width: 9ch
+
+  48%
+    width: 10ch
+
+  64%
+    width: 11ch
+
+  80%
+    width: 12ch
+
+  100%
+    width: 13ch
